@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medical Examination - Upload</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+    />
+    <script
+      src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
+      type="module"
+    ></script>
+    <style>
+      body {
+        background-image: url("https://imageupload.io/ib/N9ReERjUylSGIJl_1699084816.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+        font-family: "Poppins", sans-serif;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          rgb(4, 100, 255),
+          rgba(13, 148, 136, 0.2)
+        );
+        backdrop-filter: blur(2px);
+        z-index: -1;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Montserrat", sans-serif;
+      }
+
+      .transparent-box {
+        background: rgba(255, 255, 255, 0.9);
+        max-width: 480px;
+        margin: auto;
+        padding: 2.5rem;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        position: relative;
+        overflow: hidden;
+        transition: all 0.5s ease;
+      }
+
+      .transparent-box:hover {
+        box-shadow: 0 15px 35px rgba(59, 130, 246, 0.25);
+        transform: translateY(-5px);
+      }
+
+      .transparent-box::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -50%;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #3b82f6, #0d9488);
+        border-radius: 0 0 4px 4px;
+      }
+
+      .form-header {
+        position: relative;
+        padding-bottom: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .form-header::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 25%;
+        width: 50%;
+        height: 3px;
+        background: linear-gradient(90deg, #3b82f6, #0d9488);
+        border-radius: 3px;
+      }
+
+      .heartbeat-line {
+        position: absolute;
+        right: 20px;
+        top: 35px;
+        opacity: 0.6;
+        height: 30px;
+      }
+
+      .custom-radio:checked + .custom-label {
+        background-color: #3b82f6;
+        color: white;
+        font-weight: 600;
+        border-color: #2563eb;
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        transform: translateY(-2px) scale(1.02);
+      }
+
+      .custom-radio {
+        display: none;
+      }
+
+      .custom-label {
+        display: block;
+        padding: 14px 20px;
+        border: 2px solid #cbd5e1;
+        border-radius: 12px;
+        cursor: pointer;
+        margin-bottom: 1rem;
+        user-select: none;
+        transition: all 0.3s ease;
+        position: relative;
+        padding-left: 50px;
+        font-weight: 500;
+      }
+
+      .custom-label:hover {
+        border-color: #3b82f6;
+        background-color: #eff6ff;
+        transform: translateY(-2px);
+      }
+
+      .custom-label::before {
+        content: "";
+        position: absolute;
+        left: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        border: 2px solid #cbd5e1;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+      }
+
+      .custom-radio:checked + .custom-label::before {
+        background-color: white;
+        border-color: white;
+      }
+
+      .custom-radio:checked + .custom-label::after {
+        content: "";
+        position: absolute;
+        left: 23px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 10px;
+        height: 10px;
+        background-color: #3b82f6;
+        border-radius: 50%;
+        animation: pulse 1.5s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+        }
+        70% {
+          box-shadow: 0 0 0 6px rgba(59, 130, 246, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+        }
+      }
+
+      .file-upload-container {
+        position: relative;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .file-upload-label {
+        display: block;
+        padding: 1.5rem;
+        border: 2px dashed #cbd5e1;
+        border-radius: 12px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 0.5rem;
+      }
+
+      .file-upload-label:hover {
+        border-color: #3b82f6;
+        background-color: #eff6ff;
+      }
+
+      .file-upload-label.dragover {
+        border-color: #3b82f6;
+        background-color: #eff6ff;
+        transform: scale(1.02);
+      }
+
+      .file-upload-icon {
+        display: block;
+        margin: 0 auto 1rem;
+        width: 48px;
+        height: 48px;
+        color: #64748b;
+      }
+
+      .file-upload-text {
+        color: #64748b;
+        font-weight: 500;
+      }
+
+      .file-upload-input {
+        position: absolute;
+        left: -9999px;
+      }
+
+      .file-preview {
+        display: none;
+        margin-top: 1rem;
+        text-align: center;
+        position: relative;
+      }
+
+      .file-preview img {
+        max-width: 100%;
+        max-height: 150px;
+        border-radius: 8px;
+        border: 2px solid #3b82f6;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .file-name {
+        margin-top: 0.5rem;
+        font-weight: 500;
+        color: #3b82f6;
+        word-break: break-all;
+      }
+
+      .submit-button {
+        width: 100%;
+        background: linear-gradient(135deg, #3b82f6, #0d9488);
+        color: white;
+        padding: 1rem;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1.125rem;
+        transition: all 0.3s ease;
+        border: none;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+      }
+
+      .submit-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(59, 130, 246, 0.4);
+      }
+
+      .submit-button:active {
+        transform: translateY(1px);
+      }
+      dotlottie-player {
+        justify-content: center;
+        position: relative;
+        /* top: 100px; */
+        left: 150px;
+      }
+
+      .submit-button::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.3) 0%,
+          rgba(255, 255, 255, 0) 70%
+        );
+        transform: scale(0);
+        transition: transform 0.5s ease-out;
+      }
+
+      .submit-button:hover::before {
+        transform: scale(1);
+      }
+
+      .loading {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .loading div {
+        width: 8px;
+        height: 8px;
+        background-color: white;
+        border-radius: 50%;
+        display: inline-block;
+        margin: 0 2px;
+        animation: loading 1.4s infinite ease-in-out both;
+      }
+
+      .loading div:nth-child(1) {
+        animation-delay: -0.32s;
+      }
+
+      .loading div:nth-child(2) {
+        animation-delay: -0.16s;
+      }
+
+      @keyframes loading {
+        0%,
+        80%,
+        100% {
+          transform: scale(0);
+        }
+        40% {
+          transform: scale(1);
+        }
+      }
+
+      .section-title {
+        color: #1e40af;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+      }
+
+      .section-title-icon {
+        margin-right: 0.5rem;
+        color: #3b82f6;
+      }
+
+      @media (max-width: 640px) {
+        .transparent-box {
+          max-width: 90%;
+          padding: 1.5rem;
+        }
+
+        .form-header::after {
+          left: 15%;
+          width: 70%;
+        }
+
+        .custom-label {
+          padding: 12px 15px;
+          padding-left: 45px;
+        }
+
+        .custom-label::before {
+          left: 15px;
+        }
+
+        .custom-radio:checked + .custom-label::after {
+          left: 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="flex items-center justify-center min-h-screen p-4">
+    <dotlottie-player
+      src="https://lottie.host/e25e6a2e-da05-4dc3-b281-51caf902b551/c0IW0oSFs5.lottie"
+      background="transparent"
+      speed="1"
+      style="width: 700px; height: 700px"
+      loop
+      autoplay
+    ></dotlottie-player>
+    <div class="transparent-box">
+      <div class="form-header">
+        <h1 class="text-3xl font-extrabold text-center text-gray-800">
+          Medical Examination Upload
+        </h1>
+        <svg
+          class="heartbeat-line"
+          viewBox="0 0 100 30"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M0,15 L10,15 L20,5 L30,25 L40,0 L50,30 L60,15 L70,15 L80,8 L90,20 L100,15"
+            fill="none"
+            stroke="#3b82f6"
+            stroke-width="2"
+          />
+        </svg>
+      </div>
+
+      <form
+        method="post"
+        enctype="multipart/form-data"
+        action="/upload/"
+        class="space-y-6"
+        id="uploadForm"
+      >
+        <div>
+          <p class="section-title text-lg">
+            <svg
+              class="section-title-icon"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9 12H15M12 9V15M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            Select Examination Type:
+          </p>
+
+          <input
+            type="radio"
+            id="choice1"
+            name="choice"
+            value="1"
+            class="custom-radio"
+            required
+          />
+          <label for="choice1" class="custom-label"
+            >MRI/CT scan Examination</label
+          >
+
+          <input
+            type="radio"
+            id="choice2"
+            name="choice"
+            value="2"
+            class="custom-radio"
+            required
+          />
+          <label for="choice2" class="custom-label"
+            >Chest X-Ray Examination (For TB)</label
+          >
+
+          <input
+            type="radio"
+            id="choice3"
+            name="choice"
+            value="3"
+            class="custom-radio"
+            required
+          />
+          <label for="choice3" class="custom-label"
+            >Chest X-Ray Examination (For PNEUMONIA)</label
+          >
+        </div>
+
+        <div class="file-upload-container">
+          <label class="section-title text-lg mb-2">
+            <svg
+              class="section-title-icon"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4 16L8.58579 11.4142C9.36683 10.6332 10.6332 10.6332 11.4142 11.4142L16 16M14 14L15.5858 12.4142C16.3668 11.6332 17.6332 11.6332 18.4142 12.4142L20 14M14 8H14.01M6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            Upload Medical Image
+          </label>
+
+          <label for="fileInput" class="file-upload-label" id="dropArea">
+            <svg
+              class="file-upload-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7 16C4.79086 16 3 14.2091 3 12C3 9.79086 4.79086 8 7 8C7.03927 8 7.07846 8.00032 7.11758 8.00097C7.59628 5.70013 9.62104 4 12 4C14.3789 4 16.4037 5.70013 16.8824 8.00097C16.9215 8.00032 16.9607 8 17 8C19.2091 8 21 9.79086 21 12C21 14.2091 19.2091 16 17 16M12 12V20M12 20L9 17M12 20L15 17"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span class="file-upload-text"
+              >Drag & drop your image here or click to browse</span
+            >
+            <span class="text-sm text-gray-500 mt-1 block"
+              >Supported formats: JPG, JPEG, PNG, GIF</span
+            >
+          </label>
+          <input
+            type="file"
+            id="fileInput"
+            name="data"
+            accept=".jpg, .jpeg, .png, .gif"
+            required
+            class="file-upload-input"
+          />
+
+          <div class="file-preview" id="filePreview">
+            <img id="previewImage" src="#" alt="Preview" />
+            <p class="file-name" id="fileName"></p>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-button" id="submitBtn">
+          <span id="submitText">Upload & Predict</span>
+          <div class="loading" id="loading">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </button>
+      </form>
+    </div>
+
+    <script>
+      src =
+        "https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs";
+      type = "module";
+      // File upload preview functionality
+      const fileInput = document.getElementById("fileInput");
+      const dropArea = document.getElementById("dropArea");
+      const filePreview = document.getElementById("filePreview");
+      const previewImage = document.getElementById("previewImage");
+      const fileName = document.getElementById("fileName");
+      const uploadForm = document.getElementById("uploadForm");
+      const submitBtn = document.getElementById("submitBtn");
+      const submitText = document.getElementById("submitText");
+      const loading = document.getElementById("loading");
+
+      // Prevent default drag behaviors
+      ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+        dropArea.addEventListener(eventName, preventDefaults, false);
+        document.body.addEventListener(eventName, preventDefaults, false);
+      });
+
+      // Highlight drop area when item is dragged over it
+      ["dragenter", "dragover"].forEach((eventName) => {
+        dropArea.addEventListener(eventName, highlight, false);
+      });
+
+      ["dragleave", "drop"].forEach((eventName) => {
+        dropArea.addEventListener(eventName, unhighlight, false);
+      });
+
+      // Handle dropped files
+      dropArea.addEventListener("drop", handleDrop, false);
+
+      // Handle selected files
+      fileInput.addEventListener("change", handleFiles);
+
+      function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      function highlight() {
+        dropArea.classList.add("dragover");
+      }
+
+      function unhighlight() {
+        dropArea.classList.remove("dragover");
+      }
+
+      function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        fileInput.files = files;
+        handleFiles();
+      }
+
+      function handleFiles() {
+        const file = fileInput.files[0];
+        if (file) {
+          // Show file preview
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            previewImage.src = e.target.result;
+            fileName.textContent = file.name;
+            filePreview.style.display = "block";
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+
+      // Form submission with loading animation
+      uploadForm.addEventListener("submit", function (e) {
+        // Check if form is valid
+        if (uploadForm.checkValidity()) {
+          submitText.style.opacity = "0";
+          loading.style.display = "block";
+          // You can uncomment this if you want to simulate loading
+          // e.preventDefault();
+          // setTimeout(() => {
+          //   uploadForm.submit();
+          // }, 2000);
+        }
+      });
+
+      // Enhance radio button interaction
+      const radioButtons = document.querySelectorAll(".custom-radio");
+      radioButtons.forEach((radio) => {
+        radio.addEventListener("change", function () {
+          // Add a slight animation to the selected option
+          const label = document.querySelector(`label[for="${this.id}"]`);
+          label.style.transform = "scale(1.05)";
+          setTimeout(() => {
+            label.style.transform = "";
+          }, 200);
+        });
+      });
+    </script>
+  </body>
+</html>
